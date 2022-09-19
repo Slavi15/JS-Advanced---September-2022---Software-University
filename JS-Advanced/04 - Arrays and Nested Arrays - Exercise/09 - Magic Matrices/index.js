@@ -1,12 +1,24 @@
 function magicMatrices(arr) {
     let resultsArray = [];
+    let rowResult = 0;
+    let columnResult = 0;
+    
+    if (arr.length > 0) {
+        for (let row = 0; row < arr.length; row++) {
+            for (let column = 0; column < arr[row].length; column++) {
+                rowResult += arr[row][column];
+                columnResult += arr[column][row];
+            };
+            resultsArray.push(rowResult);
+            resultsArray.push(columnResult);
+            rowResult = 0;
+            columnResult = 0;
+        };
 
-    for (let row = 0; row < arr.length; row++) {
-        const rowResult = arr[row].reduce((previous, current) => previous + current);
-        resultsArray.push(rowResult);
+        console.log(resultsArray.every(num => num === resultsArray[0]));
+    } else if (arr.length === 0) {
+        console.log(true);
     };
-
-    console.log(resultsArray);
 };
 
 magicMatrices([[4, 5, 6],
