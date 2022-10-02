@@ -1,30 +1,16 @@
 function listProcessor(arr) {
     let resultArray = [];
 
-    for (let item of arr) {
+    let handler = {
+        add: (value) => { resultArray.push(value); },
+        remove: (value) => { resultArray = resultArray.filter(item => item !== value); },
+        print: () => { console.log(resultArray.join(',')); }
+    };
+
+    arr.forEach((item) => {
         const [command, value] = item.split(' ');
-
-        if (command === 'add') {
-            add(value);
-        } else if (command === 'remove') {
-            remove(value);
-        } else if (command === 'print') {
-            print();
-        };
-    };
-
-    function add(string) {
-        resultArray.push(string);
-    };
-
-    function remove(string) {
-        const filteredArray = resultArray.filter(item => item !== string);
-        resultArray = filteredArray;
-    };
-
-    function print() {
-        console.log(resultArray.join(','));
-    };
+        return handler[command](value);
+    });
 };
 
 listProcessor(['add hello', 'add again', 'remove hello', 'add again', 'print']);
