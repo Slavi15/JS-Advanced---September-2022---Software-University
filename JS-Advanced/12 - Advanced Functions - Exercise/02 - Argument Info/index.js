@@ -3,13 +3,14 @@ function argumentInfo(...args) {
     const map = new Map();
 
     args.forEach((element) => {
-        array.push(`${typeof element}: ${element}`);
-        if (map.has(typeof element) === false) {
-            map.set(typeof element, {
+        let elementType = typeof element;
+        array.push(`${elementType}: ${element}`);
+        if (map.has(elementType) === false) {
+            map.set(elementType, {
                 count: 1
             });
         } else {
-            map.get(typeof element).count += 1;
+            map.get(elementType).count += 1;
         };
     });
 

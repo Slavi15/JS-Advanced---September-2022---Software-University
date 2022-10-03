@@ -1,33 +1,61 @@
 function taskManager() {
     const addButton = document.getElementById('add');
 
-    addButton.addEventListener('click', function () {
-        const taskValue = document.getElementsByName('task')[0].value;
-        const textarea = document.getElementsByTagName('textarea')[0];
-        const dateValue = document.getElementsByName('date')[0].value;
+    const taskElement = document.getElementById('task');
+    const descriptionElement = document.getElementById('description');
+    const dateElement = document.getElementById('date');
 
-        if (taskValue !== '' && textarea !== '' && dateValue !== '') {
-            const article = document.createElement('article');
+    const [section, sectionOpen, sectionProgress, sectionComplete] = Array.from(document.getElementsByTagName('section')).map(el => el.children[1]);
 
-            article.innerHTML = `
-            <h3>${taskValue}</h3>
-            <p>Description: ${textarea.value}</p>
-            <p>Due Date: ${dateValue}</p>
-            <div class="flex">
-                <button class="green">Start</button>
-                <button class="red" onclick="() => { document.getElementsByTagName('section')[1].removeChild(this.parentElement.parentElement); }">Delete</button>
-            </div>
-            `;
-
-            document.getElementsByTagName('section')[1].children[1].appendChild(article);
+    addButton.addEventListener('click', function(event) {
+        event.preventDefault();
+        if (taskElement.value !== '' && descriptionElement.value !== '' && dateElement.value !== '') {
+            addTask(taskElement.value, descriptionElement.value, dateElement.value);
         };
+        taskElement.value = '';
+        descriptionElement.value = '';
+        dateElement.value = '';
     });
 
-    // const openButtons = Array.from(document.getElementsByClassName('green'));
-    // for (let button of openButtons) {
-    //     button.addEventListener('click', function() {
-    //         document.getElementById('in-progress').appendChild(this.parentElement.parentElement);
-    //         document.getElementsByTagName('section')[1].removeChild(this.parentElement.parentElement);
-    //     });
-    // };
+    function addTask(task, description, date) {
+        const article = createElement('article');
+
+        article.appendChild(createElement('h3', task));
+        article.appendChild(createElement('p', `Description: ${description}`));
+        article.appendChild(createElement('p', `Due Date: ${date}`));
+
+        const btnContainer = createElement('div', null, 'flex');
+
+        const buttonStart = createElement('button', 'Start', 'green');
+        const buttonDelete = createElement('button', 'Delete', 'red');
+        const buttonFinish = createElement('button', 'Finish', 'orange');
+
+        buttonStart.addEventListener('click', () => {
+            buttonStart.remove();
+            btnContainer.appendChild(buttonFinish);
+            sectionProgress.appendChild(article);
+        });
+        buttonDelete.addEventListener('click', () => { 
+            article.remove(); 
+        });
+        buttonFinish.addEventListener('click', () => {
+            btnContainer.remove();
+            sectionComplete.appendChild(article);
+        });
+
+        btnContainer.appendChild(buttonStart);
+        btnContainer.appendChild(buttonDelete);
+
+        article.appendChild(btnContainer);
+        sectionOpen.appendChild(article);
+    };
+
+    function createElement(tagType, value, className) {
+        const element = document.createElement(tagType);
+        element.textContent = value;
+        if (className) {
+            element.classList.add(className);
+        };
+        return element;
+    };
 };
