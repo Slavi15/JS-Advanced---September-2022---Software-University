@@ -2,8 +2,7 @@ function playingCards(face, suit) {
     const validFaces = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
     const validSuits = ['S', 'H', 'D', 'C'];
 
-    if (!validFaces.includes(face)) throw new Error('Error');
-    if (!validSuits.includes(suit)) throw new Error('Error');
+    if (!validFaces.includes(face) || !validSuits.includes(suit)) throw new Error('Error');
 
     switch (suit) {
         case 'S': suit = '\u2660'; break;
