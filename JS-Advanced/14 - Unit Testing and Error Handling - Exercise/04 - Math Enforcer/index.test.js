@@ -12,9 +12,6 @@ describe('mathEnforcer', function() {
         expect(mathEnforcer['addFive'](5.6)).to.equal(10.6);
     });
     it('should return result', function() {
-        expect(mathEnforcer['addFive'](-5.6)).to.equal(-0.6);
-    });
-    it('should return result', function() {
         expect(mathEnforcer['addFive'](-5)).to.equal(0);
     });
     it('should return result', function() {
