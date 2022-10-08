@@ -2,14 +2,15 @@ function formValidation() {
     const USERNAME_REGEX = new RegExp(/^([A-Za-z0-9]{3,20})$/, 'g');
     const PASSWORD_REGEX = new RegExp(/^(\w{5,15})$/, 'g');
     const CONFIRM_PASSWORD_REGEX = new RegExp(/^(\w{5,15})$/, 'g');
-    const EMAIL_REGEX = new RegExp(/(@([A-Za-z]+)?\.{1,})/, 'g');
+    const EMAIL_REGEX = new RegExp(/^(([\w\.]+)?@([\w]+)?\.{1,}([\w]+)?)$/, 'g');
 
     const [username, email, password, confirmPassword, company, companyNumber] = Array.from(document.querySelectorAll('input'));
     const button = document.getElementById('submit');
+    const companyInfo = document.getElementById('companyInfo');
     const validDiv = document.getElementById('valid');
 
     company.addEventListener('change', function () {
-        this.checked ? companyNumber.parentElement.parentElement.style.display = 'block' : companyNumber.parentElement.parentElement.style.display = 'none';
+        companyInfo.style.display === 'none' ? companyInfo.style.display = 'block' : companyInfo.style.display = 'none';
     });
 
     let isValid = null;
@@ -42,7 +43,7 @@ function formValidation() {
                 };
                 break;
             case 'email':
-                if (email.value.match(EMAIL_REGEX) === null) {
+                if (!EMAIL_REGEX.test(email.value)) {
                     email.style.borderColor = 'red';
                     isValid = false;
                 } else {
@@ -73,16 +74,11 @@ function formValidation() {
                     if (companyNumber.value < 1000 || companyNumber.value > 9999) {
                         companyNumber.style.borderColor = 'red';
                         isValid = false;
-                    } else if (companyNumber.value === '') {
-                        companyNumber.style.borderColor = 'red';
-                        isValid = false;
                     } else {
                         companyNumber.style.border = 'none';
                         isValid = true;
                     };
                 };
-                break;
-            default:
                 break;
         };
     };

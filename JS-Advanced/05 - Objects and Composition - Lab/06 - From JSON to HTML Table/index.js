@@ -1,35 +1,31 @@
 function jsonToHTMLTable(str) {
     const jsonData = JSON.parse(str);
-    let keysArray = [];
-    let valuesArray = [];
+    const columnKeys = Object.keys(jsonData[0]);
+    const values = jsonData.map(obj => Object.values(obj));
 
-    for (let item of jsonData) {
-        const keys = Object.keys(item);
-        const values = Object.values(item);
+    let result = '<table>\n';
 
-        let keyResult = '';
-        for (let key of keys) {
-            keyResult += `<th>${key}</th>`
-        };
-        keysArray.push(keyResult);
+    result += '   <tr>';
+    for (let key of columnKeys) {
+        result += `<th>${escapeValue(key.toString())}</th>`;
+    };
+    result += '</tr>\n';
 
-        let valueResult = '';
-        for (let value of values) {
-            valueResult += `<td>${value}</td>`;
-        };
-        valuesArray.push(valueResult);
+    for (let value of values) {
+        result += '   <tr>';
+        value.forEach(val => {
+            result += `<td>${escapeValue(val.toString())}</td>`;
+        });
+        result += '</tr>\n';
     };
 
-    let finalValuesArray = [];
+    result += '</table>';
 
-    for (let value of valuesArray) {
-        finalValuesArray.push(`<tr>${value}</tr>`);
+    function escapeValue(value) {
+        return value.replace('<', '&lt;').replace('>', '&gt;');
     };
 
-    let finalKeysArray =`<tr>${keysArray[0]}</tr>`;
-    let finalArray = ['<table>', finalKeysArray, finalValuesArray.join('\n'), '</table>']
-
-    console.log(finalArray.join('\n'));
+    console.log(result);
 };
 
 jsonToHTMLTable(`[{"Name":"Stamat",

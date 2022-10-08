@@ -4,14 +4,17 @@ function equalNeighbours(matrix) {
     for (let row = 0; row < matrix.length; row++) {
         for (let column = 0; column < matrix[row].length; column++) {
             if (row !== matrix.length - 1 && column !== matrix[row].length - 1) {
-                if (matrix[row][column] === matrix[row + 1][column] || matrix[row][column] === matrix[row][column + 1]) {
+                if (matrix[row][column] === matrix[row + 1][column]) {
                     neighbourCount += 1;
                 };
-            } else if (row === matrix.length - 1) {
                 if (matrix[row][column] === matrix[row][column + 1]) {
                     neighbourCount += 1;
                 };
-            } else if (column === matrix[row].length - 1) {
+            } else if (row === matrix.length - 1 && column !== matrix[row].length - 1) {
+                if (matrix[row][column] === matrix[row][column + 1]) {
+                    neighbourCount += 1;
+                };
+            } else if (column === matrix[row].length - 1 && row !== matrix.length - 1) {
                 if (matrix[row][column] === matrix[row + 1][column]) {
                     neighbourCount += 1;
                 };
