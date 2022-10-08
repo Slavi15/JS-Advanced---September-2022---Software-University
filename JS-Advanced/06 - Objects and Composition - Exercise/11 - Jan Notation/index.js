@@ -5,17 +5,17 @@ function janNotation(arr) {
     for (let operator of operators) {
         if (operands.length >= 2) {
             if (operator === '+') {
-                let result = Number(operands[1]) + Number(operands[0]);
-                operands.splice(0, 2, result);
+                let result = Number(operands[operands.length - 2]) + Number(operands[operands.length - 1]);
+                operands.splice(operands.length - 2, 2, result);
             } else if (operator === '-') {
-                let result = Number(operands[1]) - Number(operands[0]);
-                operands.splice(0, 2, result);
+                let result = Number(operands[operands.length - 2]) - Number(operands[operands.length - 1]);
+                operands.splice(operands.length - 2, 2, result);
             } else if (operator === '*') {
-                let result = Number(operands[1]) * Number(operands[0]);
-                operands.splice(0, 2, result);
+                let result = Number(operands[operands.length - 2]) * Number(operands[operands.length - 1]);
+                operands.splice(operands.length - 2, 2, result);
             } else if (operator === '/') {
-                let result = Number(operands[0]) / Number(operands[1]);
-                operands.splice(0, 2, result);
+                let result = Number(operands[operands.length - 2]) / Number(operands[operands.length - 1]);
+                operands.splice(operands.length - 2, 2, result);
             };
         } else {
             console.log('Error: not enough operands!');
@@ -24,13 +24,13 @@ function janNotation(arr) {
     };
 
     if (operands.length === 1) {
-        console.log(operands[0]);
+        console.log(Math.ceil(operands[0]));
     } else if (operands.length > 1) {
         console.log('Error: too many operands!');
     };
 };
 
-// janNotation([3, 4, '+']);
+janNotation([3, 4, '+']);
 janNotation([5, 3, 4, '*', '-']);
 janNotation([7, 33, 8, '-']);
 janNotation([15, '/']);

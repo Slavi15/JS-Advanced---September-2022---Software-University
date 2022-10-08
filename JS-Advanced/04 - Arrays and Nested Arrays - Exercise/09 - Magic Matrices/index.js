@@ -1,20 +1,15 @@
 function magicMatrices(arr) {
-    let resultsArray = [];
-
-    for (let row = 0; row < arr.length; row++) {
-        let rowResult = 0;
-        let columnResult = 0;
-
-        for (let column = 0; column < arr[row].length; column++) {
-            columnResult += Number(arr[row][column]);
-            rowResult += Number(arr[column][row]);
-        };
-
-        resultsArray.push(rowResult);
-        resultsArray.push(columnResult);
+    return checkMagic(arr) && checkMagic(rotate(arr));
+ 
+    function rotate(array) {
+        return array[0].map((x, i) => array.map(x => x[i]));
     };
 
-    console.log(resultsArray.every(num => num === resultsArray[0]));
+    function checkMagic(arr) {
+        arr = arr.map(x => x.reduce((a, b) => a + b));
+ 
+        return arr.every(x => x === arr[0]);
+    };
 };
 
 magicMatrices([[4, 5, 6],

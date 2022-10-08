@@ -5,10 +5,12 @@ function createSortedList() {
         add: function(element) {
             list.push(element);
             list.sort((a, b) => a - b);
+            this.size += 1;
         },
         remove: function(index) {
             if (index >= 0 && index < list.length) {
                 list.splice(index, 1);
+                this.size -= 1;
             };
         },
         get: function(index) {
@@ -16,7 +18,7 @@ function createSortedList() {
                 return list[index];
             };
         },
-        size: list.length
+        size: 0
     };
 };
 

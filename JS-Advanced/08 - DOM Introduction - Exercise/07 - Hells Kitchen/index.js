@@ -21,7 +21,7 @@ function hellsKitchen() {
             }, []);
 
             let avgSalary = reducedData.reduce((previousValue, currentValue, currentIndex, array) => {
-                return previousValue + (currentValue.value / array.length);
+                return previousValue + currentValue.value;
             }, 0);
 
             let highestValue = Math.max(...reducedData.map(i => i.value));
@@ -39,6 +39,10 @@ function hellsKitchen() {
                 map.get(restaurant).averageSalary += avgSalary;
                 map.get(restaurant).bestSalary < highestValue ? map.get(restaurant).bestSalary = highestValue : '';
             };
+        };
+
+        for (let kvp of map) {
+            kvp[1].averageSalary = kvp[1].averageSalary / kvp[1].workerData.length;
         };
 
         const sortedMap = new Map([...map.entries()].sort((a, b) => b[1].averageSalary - a[1].averageSalary));
