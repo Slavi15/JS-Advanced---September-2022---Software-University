@@ -19,4 +19,4 @@ function personAndTeacher() {
     };
 };
 
-console.log(personAndTeacher());
+// console.log(personAndTeacher());
