@@ -1,0 +1,1 @@
+window.addEventListener('DOMContentLoaded', () => window.location.href = './src/index.html');
